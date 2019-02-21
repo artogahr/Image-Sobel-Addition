@@ -1,5 +1,5 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
+//#include "stb_image_write.h"
 #include "Image.h"
 #include <math.h>
 ifstream &operator>>(ifstream &is, Image &im)
@@ -41,7 +41,7 @@ ifstream &operator>>(ifstream &is, Image &im)
         lala[(i % im.width) * im.height + i / im.width] = buffer[i];
     }
 
-    stbi_write_png("test.png", im.height, im.width, 1, lala, 0);
+    //stbi_write_png("test.png", im.height, im.width, 1, lala, 0);
     delete[] buffer;
 }
 ofstream &operator<<(ofstream &os, Image &im)
