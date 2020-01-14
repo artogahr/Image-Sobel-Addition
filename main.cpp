@@ -1,4 +1,3 @@
-
 #include <iostream> // std::cout
 #include <fstream>  // std::ifstream
 #include <cstdint>
@@ -8,11 +7,23 @@ int main(int argc, char *argv[])
 {
     bool run = true;
     int selection, treshold;
+    string bin1Name = "image1.bin", bin2Name = "image2.bin", outputName = "output.txt";
     ifstream bin1, bin2;
     ofstream output;
-    bin1.open(argv[1], std::ifstream::binary);
-    bin2.open(argv[2], std::ifstream::binary);
-    output.open(argv[3], ios::app);
+    if(argc < 3)
+    {
+        cout << "correct arguments not supplied, using default settings";
+    }
+    else
+    {
+        bin1Name = argv[1];
+        bin2Name = argv[2];
+        outputName = argv[3];
+    }
+    
+    bin1.open(bin1Name, std::ifstream::binary);
+    bin2.open(bin2Name, std::ifstream::binary);
+    output.open(outputName, ios::app);
     Image image1, image2;
     bin1 >> image1;
     bin2 >> image2;
@@ -27,7 +38,7 @@ int main(int argc, char *argv[])
         switch (selection)
         {
         case 1:
-            cout << "\nSelect image:\n\n\t[1] -> " << argv[1] << "\n\t[2] -> " << argv[2] << "\n- > ";
+            cout << "\nSelect image:\n\n\t[1] -> " << bin1Name << "\n\t[2] -> " << bin2Name << "\n- > ";
             Image image;
             cin >> selection;
             if (selection == 1)
@@ -55,9 +66,9 @@ int main(int argc, char *argv[])
             }
             break;
         case 2:
-            cout << "\n\tSelect your operation:\n\n\t\t[1] -> " << argv[1] << " + " << argv[2] << " (Logical OR)" << endl;
-            cout << "\t\t[2] -> " << argv[1] << " * " << argv[2] << " (Logical AND)" << endl;
-            cout << "\t\t[3] -> !" << argv[1] << " or !" << argv[2] << " (Logical NOT)\n\t -> ";
+            cout << "\n\tSelect your operation:\n\n\t\t[1] -> " << bin1Name << " + " << bin2Name << " (Logical OR)" << endl;
+            cout << "\t\t[2] -> " << bin1Name << " * " << bin2Name << " (Logical AND)" << endl;
+            cout << "\t\t[3] -> !" << bin1Name << " or !" << bin2Name << " (Logical NOT)\n\t -> ";
             cin >> selection;
 
             if (selection == 1)
@@ -79,8 +90,8 @@ int main(int argc, char *argv[])
             }
             else if (selection == 3)
             {
-                cout << "\n\t\t\t[1] -> !" << argv[1];
-                cout << "\n\t\t\t[2] -> !" << argv[2];
+                cout << "\n\t\t\t[1] -> !" << bin1Name;
+                cout << "\n\t\t\t[2] -> !" << bin2Name;
                 cout << "\n\t\t -> ";
                 cin >> selection;
                 if (selection == 1)
